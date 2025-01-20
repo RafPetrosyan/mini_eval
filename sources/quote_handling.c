@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naghajan <naghajan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rafpetro <rafpetro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 15:57:36 by naghajan          #+#    #+#             */
-/*   Updated: 2025/01/20 15:57:44 by naghajan         ###   ########.fr       */
+/*   Updated: 2025/01/20 16:58:57 by rafpetro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,10 @@ int	write_two_quote(int *i, t_tokens *token, int *j, t_minishell *minishell)
 			count += write_two_quote_helper(token, j, i, str);
 	}
 	return (count);
+}
+
+void	init_helper(t_helper *helper, int doc_index)
+{
+	helper->d = doc_index;
+	helper->i = 0;
 }

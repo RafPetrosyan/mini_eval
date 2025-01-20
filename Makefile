@@ -14,33 +14,33 @@ SRCS_DIR = sources/
 
 OBJS_DIR = objects/
 
-SRCS_NAME =	a_minishell.c \
-			a_ft_split_tokens.c \
-			a_quotes.c \
+SRCS_NAME =	minishell.c \
+			ft_split_tokens.c \
+			quotes.c \
 			token_helpers.c\
-			a_libft.c\
-			a_builtins.c\
-			a_env.c\
-			a_export_sort.c\
-			a_ft_cd.c\
-			a_ft_export.c\
-			a_ft_echo.c\
-			a_tokens_to_char.c\
+			libft.c\
+			builtins.c\
+			env.c\
+			export_sort.c\
+			ft_cd.c\
+			ft_export.c\
+			ft_echo.c\
+			tokens_to_char.c\
 			ft_execve.c\
-			a_ft_split.c\
-			a_env_to_char.c\
-			a_ft_itoa.c\
-			a_pipe_commands.c\
+			ft_split.c\
+			env_to_char.c\
+			ft_itoa.c\
+			pipe_commands.c\
 			in_redir.c\
-			a_ft_exit.c\
-			a_ft_printf.c\
+			ft_exit.c\
+			ft_printf.c\
 			here_doc.c\
-			a_here_doc_init.c\
-			a_memmory_free.c\
-			a_anyndhat.c\
-			a_redirs.c\
-			a_allocated_fd_arrs.c\
-			a_open_and_run_forks.c\
+			here_doc_init.c\
+			memmory_free.c\
+			anyndhat.c\
+			redirs.c\
+			allocated_fd_arrs.c\
+			open_and_run_forks.c\
 			redirections.c\
 			signals.c\
 			signal_handlers.c\

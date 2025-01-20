@@ -6,7 +6,7 @@
 /*   By: rafpetro <rafpetro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 16:50:47 by rafpetro          #+#    #+#             */
-/*   Updated: 2025/01/20 13:40:16 by rafpetro         ###   ########.fr       */
+/*   Updated: 2025/01/20 16:54:27 by rafpetro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	steghcel_cmd_arr(t_tokens **tokens, t_minishell *minishell)
 		free_memory(minishell, 1);
 		exit(55);
 	}
-
 }
 
 void	grel_cmd_arr(t_tokens **tokens, t_minishell *minishell)
@@ -57,47 +56,54 @@ void	grel_cmd_arr(t_tokens **tokens, t_minishell *minishell)
 	}
 	minishell->cmd_arr[count] = 0;
 }
-int helper(t_tokens **tokens, t_minishell *mini, int doc_index, int *fd)
-{
-	int	i;
 
-	i = 0;
-	while (tokens[i] != NULL && tokens[i]->type != 1)
+int	helper(t_tokens **tokens, t_minishell *mini, int doc_index, int *fd)
+{
+	t_helper	*helper;
+
+	helper = malloc(sizeof(t_helper));
+	if (helper == 0)
 	{
-		if (tokens[i]->type == OUT_REDIR)
+		free_memory(mini, 1);
+		exit(55);
+	}
+	init_helper(helper, doc_index);
+	return (helper_verjnakan(helper, mini, tokens, fd));
+}
+
+int	helper_verjnakan(t_helper *h, t_minishell *mini, t_tokens **tokens, int *fd)
+{
+	while (tokens[h->i] != NULL && tokens[h->i]->type != 1)
+	{
+		if (tokens[h->i]->type == OUT_REDIR)
 		{
-			if (out_redir(&i, fd, tokens, mini) == 3)
+			if (out_redir(&(h->i), fd, tokens, mini) == 3)
 				continue ;
-			else
-				return (1);
+			return (1);
 		}
-		if (tokens[i]->type == OUT_APPEND_REDIR)
+		if (tokens[h->i]->type == OUT_APPEND_REDIR)
 		{
-			if (out_append_redir(&i, fd, tokens, mini) == 3)
+			if (out_append_redir(&(h->i), fd, tokens, mini) == 3)
 				continue ;
-			else
-				return (1);
+			return (1);
 		}
-		if (tokens[i]->type == IN_REDIR)
+		if (tokens[h->i]->type == IN_REDIR)
 		{
-			if (in_redir(&i, fd, tokens, mini) == 3)
+			if (in_redir(&(h->i), fd, tokens, mini) == 3)
 				continue ;
-			else
-				return (1);
+			return (1);
 		}
-		if (tokens[i]->type == 4 && doc_red(&i, fd, mini, &doc_index) == 3)
-				continue ;
-		++i;
+		if (tokens[h->i]->type == 4 && doc_red(&(h->i), fd, mini, &(h->d)) == 3)
+			continue ;
+		++(h->i);
 	}
 	return (0);
 }
 
 int	cmds(t_tokens **tokens, t_minishell *minishell, int doc_index)
 {
-	int	i;
 	int	fd;
 
-	i = 0;
 	fd = -1;
 	minishell->saved_fd[0] = dup(STDIN_FILENO);
 	minishell->saved_fd[1] = dup(STDOUT_FILENO);
@@ -112,12 +118,11 @@ int	cmds(t_tokens **tokens, t_minishell *minishell, int doc_index)
 		if (fd != -1)
 			close(fd);
 		dup2(minishell->saved_fd[1], STDOUT_FILENO);
-		return 2;
+		return (2);
 	}
 	if (fd != -1)
 		close(fd);
 	dup2(minishell->saved_fd[0], STDIN_FILENO);
 	dup2(minishell->saved_fd[1], STDOUT_FILENO);
-	return 0;
+	return (0);
 }
-
