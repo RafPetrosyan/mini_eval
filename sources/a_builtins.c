@@ -65,7 +65,7 @@ int	ft_unset(t_EnvList **env, char **tokens)
 		{
 			g_exit_status = 1;
 			ft_printf(" %s: not a valid identifier\n", tokens[i++]);
-			continue;
+			continue ;
 		}
 		j = 0;
 		unset_node = find_to_env_export(tokens[i], *env, &j);

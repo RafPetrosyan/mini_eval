@@ -6,7 +6,7 @@
 /*   By: rafpetro <rafpetro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 16:50:32 by rafpetro          #+#    #+#             */
-/*   Updated: 2025/01/18 00:11:29 by rafpetro         ###   ########.fr       */
+/*   Updated: 2025/01/20 14:49:33 by naghajan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,17 @@ void	check_line_null(char *str)
 // 	printf("--------------------------------------------------\n");
 // }
 
+void	sig(void)
+{
+	signal(SIGQUIT, SIG_IGN);
+	signals_before();
+}
+
 void	anyndhat(t_minishell *mini)
 {
 	while (mini->str)
 	{
-		signal(SIGQUIT, SIG_IGN);
-		signals_before();
+		sig();
 		mini->str = readline("\033[38;5;43mMinishell:\033[0;000m ");
 		signals_after();
 		if (mini->str == 0)
