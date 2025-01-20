@@ -192,5 +192,7 @@ void	ft_execve_helper1(t_minishell *minishell, char **paths);
 void	ft_execve_helper2(t_minishell *minishell, char **paths);
 void	ft_execve_helper3(t_minishell *minishell, char **paths, int id);
 int	check_key_std(char *str);
-
+int	set_type(char *str, int *i, t_tokens *token);
+int	write_operator(char *str, int *i, t_tokens *token, int *j);
+void	write_int_to_arr(char *str, int nmb, int *index);
 #endif

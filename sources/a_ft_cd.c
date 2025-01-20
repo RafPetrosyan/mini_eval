@@ -6,7 +6,7 @@
 /*   By: rafpetro <rafpetro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 19:55:12 by rafpetro          #+#    #+#             */
-/*   Updated: 2025/01/20 11:38:13 by rafpetro         ###   ########.fr       */
+/*   Updated: 2025/01/20 15:51:55 by naghajan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,16 +133,4 @@ int	cd_no_arguments(t_EnvList *env)
 	g_exit_status = 1;
 	ft_printf("chdir() failed");
 	return (1);
-}
-
-void	cd_helper(t_EnvList *env, int *i, char *pwd)
-{
-	if (find_to_env_export("OLDPWD", env, i) != 0)
-		free(find_to_env_export("OLDPWD", env, i)->value);
-	if (find_to_env_export("PWD", env, i) != 0)
-		free (find_to_env_export("PWD", env, i)->value);
-	ft_export_helper("OLDPWD", env);
-	ft_export_helper("PWD", env);
-	find_to_env_export("OLDPWD", env, i)->value = pwd;
-	find_to_env_export("PWD", env, i)->value = getcwd(0, 0);
 }

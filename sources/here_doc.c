@@ -6,7 +6,7 @@
 /*   By: rafpetro <rafpetro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 16:50:42 by rafpetro          #+#    #+#             */
-/*   Updated: 2025/01/20 11:16:53 by rafpetro         ###   ########.fr       */
+/*   Updated: 2025/01/20 15:56:29 by naghajan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	here_doc_run_helper2(int fd, t_minishell *minishell)
 	minishell->here_doc_str = 0;
 }
 
-void	here_doc_run_helper1(char *str, int fd, t_minishell *minishell, char *stop)
+void	here_doc_run_helper1(char *str, int fd, t_minishell *minishell, char *x)
 {
 	while (str != 0)
 	{
@@ -62,11 +62,11 @@ void	here_doc_run_helper1(char *str, int fd, t_minishell *minishell, char *stop)
 		if (str == 0)
 		{
 			printf("mini: warning: here-document\
- at line X delimited by end-of-file (wanted `%s')\n", stop);
+ at line X delimited by end-of-file (wanted `%s')\n", x);
 			here_doc_run_helper2(fd, minishell);
 			break ;
 		}
-		if (ft_strcmp(str, stop) != 0)
+		if (ft_strcmp(str, x) != 0)
 		{
 			minishell->here_doc_str = ft_strjoin_free1(minishell->here_doc_str,
 					str, '\n');
@@ -85,7 +85,6 @@ void	her_doc_run(char *stop, int fd, t_minishell *minishell)
 {
 	char	*str;
 
-	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_IGN);
 	str = "";
 	minishell->here_doc_str = readline("> ");
@@ -102,49 +101,4 @@ void	her_doc_run(char *stop, int fd, t_minishell *minishell)
 		return ;
 	}
 	here_doc_run_helper1(str, fd, minishell, stop);
-}
-
-int	check_syntax_helper(t_tokens **tokens, int *i)
-{
-	while (tokens[*i] != 0)
-	{
-		if (*i == 0 && tokens[0]->type == PIPE)
-		{
-			g_exit_status = 2;
-			ft_printf("bash: syntax error near\
- unexpected token `%s'\n", tokens[*i]->str);
-			return (2);
-		}
-		if ((tokens[*i]->type == IN_REDIR || tokens[*i]->type == OUT_REDIR
-				|| tokens[*i]->type == OUT_APPEND_REDIR
-				|| tokens[*i]->type == HERE_DOCK)
-			&& (tokens[*i + 1] != 0 && tokens[*i + 1]->type != 0))
-		{
-			g_exit_status = 2;
-			ft_printf("bash: syntax error near\
- unexpected token `%s'\n", tokens[*i + 1]->str);
-			return (2);
-		}
-		++(*i);
-	}
-	return (0);
-}
-
-int	check_syntax(t_tokens **tokens)
-{
-	int	i;
-
-	i = 0;
-	if (tokens[0] == 0)
-		return (2);
-	if (check_syntax_helper(tokens, &i) == 2)
-		return (2);
-	if (tokens[i - 1]->type != 0)
-	{
-		g_exit_status = 2;
-		ft_printf("bash: syntax error near unexpected token `newline'\n");
-		return (2);
-	}
-	g_exit_status = 0;
-	return (0);
 }

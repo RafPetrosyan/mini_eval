@@ -17,8 +17,7 @@ OBJS_DIR = objects/
 SRCS_NAME =	a_minishell.c \
 			a_ft_split_tokens.c \
 			a_quotes.c \
-			a_write_tokens.c\
-			dollar.c\
+			token_helpers.c\
 			a_libft.c\
 			a_builtins.c\
 			a_env.c\
@@ -44,7 +43,14 @@ SRCS_NAME =	a_minishell.c \
 			a_open_and_run_forks.c\
 			redirections.c\
 			signals.c\
-			signal_handlers.c
+			signal_handlers.c\
+			cd_utils.c\
+			token_parsing.c\
+			quote_handling.c\
+			env_variable_handling.c\
+			string_helpers.c\
+			dollar_handling.c\
+			syntax_checking.c
 
 OBJS = $(addprefix $(OBJS_DIR), $(OBJS_NAME))
 OBJS_NAME = $(SRCS_NAME:.c=.o)

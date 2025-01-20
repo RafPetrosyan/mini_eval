@@ -19,7 +19,7 @@ int	check_key_std(char *str)
 	i = 0;
 	if (str[i] != '_' && !((str[i] >= 'a' && str[i] <= 'z')
 			|| (str[i] >= 'A' && str[i] <= 'Z')))
-			return (1);
+		return (1);
 	++i;
 	while (str[i] != '=' && str[i] != '\0' && (str[i] == '_'
 			|| (str[i] >= 'a' && str[i] <= 'z')
