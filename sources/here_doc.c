@@ -85,6 +85,8 @@ void	her_doc_run(char *stop, int fd, t_minishell *minishell)
 {
 	char	*str;
 
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_IGN);
 	str = "";
 	minishell->here_doc_str = readline("> ");
 	if (minishell->here_doc_str == 0)

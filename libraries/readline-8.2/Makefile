@@ -31,7 +31,7 @@ PACKAGE_TARNAME = readline
 srcdir = .
 
 top_srcdir = .
-BUILD_DIR = /Users/rafpetro/Desktop/shell/libraries/readline-8.2
+BUILD_DIR = /Users/naghajan/Desktop/mymymy/libraries/readline-8.2
 
 INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
@@ -48,7 +48,7 @@ MV = mv
 
 SHELL = /bin/sh
 
-prefix = /Users/rafpetro/Desktop/shell/libraries/readline
+prefix = /Users/naghajan/Desktop/mymymy/libraries/readline
 exec_prefix = ${prefix}
 
 datarootdir = ${prefix}/share

@@ -42,7 +42,9 @@ SRCS_NAME =	a_minishell.c \
 			a_redirs.c\
 			a_allocated_fd_arrs.c\
 			a_open_and_run_forks.c\
-			redirections.c
+			redirections.c\
+			signals.c\
+			signal_handlers.c
 
 OBJS = $(addprefix $(OBJS_DIR), $(OBJS_NAME))
 OBJS_NAME = $(SRCS_NAME:.c=.o)

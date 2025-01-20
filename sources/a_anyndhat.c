@@ -28,17 +28,6 @@ void	check_line_null(char *str)
 	}
 }
 
-void	show_ctl(int sig)
-{
-	struct termios	new;
-
-	tcgetattr(0, &new);
-	if (sig)
-		new.c_lflag |= ECHOCTL;
-	else
-		new.c_lflag &= ~ECHOCTL;
-	tcsetattr(0, TCSANOW, &new);
-}
 // void print_tokens_info(char *str, t_minishell *minishell, t_tokens **tokens)
 // {
 // 	int	*arr;
@@ -60,19 +49,14 @@ void	show_ctl(int sig)
 // 	printf("--------------------------------------------------\n");
 // }
 
-void	signals(void)
-{
-	show_ctl(0);
-	signal(SIGQUIT, SIG_IGN);
-	handle_signal();
-}
-
 void	anyndhat(t_minishell *mini)
 {
 	while (mini->str)
 	{
-		signals();
+		signal(SIGQUIT, SIG_IGN);
+		signals_before();
 		mini->str = readline("\033[38;5;43mMinishell:\033[0;000m ");
+		signals_after();
 		if (mini->str == 0)
 			break ;
 		check_line_null(mini->str);

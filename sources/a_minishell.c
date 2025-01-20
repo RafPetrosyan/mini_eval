@@ -28,41 +28,6 @@ void	set_default_values(t_minishell *minishell)
 	minishell->cmd_arr = 0;
 }
 
-void	*ft_memset(void *b, int c, size_t len)
-{
-	unsigned char	a;
-	char			*str;
-	size_t			i;
-
-	i = 0;
-	str = (char *)b;
-	a = (unsigned char)c;
-	while (i < len)
-		str[i++] = a;
-	return (b);
-}
-
-void	sig_handler_sa(int signal)
-{
-	if (signal == SIGINT)
-	{
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		printf("\n");
-		rl_redisplay();
-	}
-}
-
-int	handle_signal(void)
-{
-	struct sigaction	sa;
-
-	ft_memset(&sa, 0, sizeof(sa));
-	sa.sa_sigaction = (void *)sig_handler_sa;
-	sigaction(SIGINT, &sa, NULL);
-	return (0);
-}
-
 int	main(int argc, char **argv, char **env)
 {
 	t_minishell	*minishell;
